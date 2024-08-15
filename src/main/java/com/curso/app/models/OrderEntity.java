@@ -1,14 +1,27 @@
 package com.curso.app.models;
 
+import jakarta.persistence.*;
+
 import java.sql.Date;
 
+
+@Entity
+@Table(name = "OrderEntity")
 public class OrderEntity {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String number;
     private Date creationDate;
     private Date receiveDate;
     private double total;
+
+    @ManyToOne
+    private UserEntity user;
+
+    @OneToOne(mappedBy = "order")
+    private OrderDetailEntity orderDetail;
 
     public OrderEntity() {
     }
@@ -59,6 +72,22 @@ public class OrderEntity {
 
     public void setTotal(double total) {
         this.total = total;
+    }
+
+    public UserEntity getUser() {
+        return user;
+    }
+
+    public void setUser(UserEntity user) {
+        this.user = user;
+    }
+
+    public OrderDetailEntity getOrderDetail() {
+        return orderDetail;
+    }
+
+    public void setOrderDetail(OrderDetailEntity orderDetail) {
+        this.orderDetail = orderDetail;
     }
 
     @Override

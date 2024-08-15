@@ -1,6 +1,14 @@
 package com.curso.app.models;
 
+import jakarta.persistence.*;
+
+import java.util.List;
+
+@Entity
+@Table(name = "UserEntity")
 public class UserEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
     private String username;
@@ -9,6 +17,12 @@ public class UserEntity {
     private String phone;
     private String type;
     private String password;
+
+    @OneToMany(mappedBy = "user")
+    private List<ProductEntity> products;
+
+    @OneToMany(mappedBy = "user")
+    private List<OrderEntity> orders;
 
     public UserEntity() {
     }
@@ -86,6 +100,22 @@ public class UserEntity {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<ProductEntity> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<ProductEntity> products) {
+        this.products = products;
+    }
+
+    public List<OrderEntity> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<OrderEntity> orders) {
+        this.orders = orders;
     }
 
     @Override

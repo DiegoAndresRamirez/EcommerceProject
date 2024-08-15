@@ -1,11 +1,25 @@
 package com.curso.app.models;
 
+
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "OrderDetailEntity")
 public class OrderDetailEntity {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
     private double quantity;
     private double price;
     private double total;
+
+    @ManyToOne
+    private ProductEntity product;
+
+    @OneToOne
+    private OrderEntity order;
 
     public OrderDetailEntity() {
     }
@@ -56,6 +70,22 @@ public class OrderDetailEntity {
 
     public void setTotal(double total) {
         this.total = total;
+    }
+
+    public OrderEntity getOrder() {
+        return order;
+    }
+
+    public void setOrder(OrderEntity order) {
+        this.order = order;
+    }
+
+    public ProductEntity getProduct() {
+        return product;
+    }
+
+    public void setProduct(ProductEntity product) {
+        this.product = product;
     }
 
     @Override

@@ -1,6 +1,12 @@
 package com.curso.app.models;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "ProductEntity")
 public class ProductEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
     private String description;
@@ -8,16 +14,21 @@ public class ProductEntity {
     private double price;
     private int quantity;
 
+    @ManyToOne
+    private UserEntity user;
+
+
     public ProductEntity() {
     }
 
-    public ProductEntity(Integer id, String name, String description, String imagen, double price, int quantity) {
+    public ProductEntity(Integer id, String name, String description, String imagen, double price, int quantity, UserEntity user) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.imagen = imagen;
         this.price = price;
         this.quantity = quantity;
+        this.user = user;
     }
 
     public Integer getId() {
@@ -68,6 +79,14 @@ public class ProductEntity {
         this.quantity = quantity;
     }
 
+    public UserEntity getUser() {
+        return user;
+    }
+
+    public void setUser(UserEntity user) {
+        this.user = user;
+    }
+
     @Override
     public String toString() {
         return "ProductEntity{" +
@@ -77,6 +96,7 @@ public class ProductEntity {
                 ", imagen='" + imagen + '\'' +
                 ", price=" + price +
                 ", quantity=" + quantity +
+                ", user=" + user +
                 '}';
     }
 }
